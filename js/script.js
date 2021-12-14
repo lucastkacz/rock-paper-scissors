@@ -67,11 +67,6 @@ function displayOutcomeScore(){
 
 
 
-
-
-
-
-
 // Get all the buttons in buttons container div
 const mybuttons = document.querySelectorAll('.buttons button');
 
