@@ -1,6 +1,6 @@
 html {
     margin: 1%;
-    background-color: rgb(255, 253, 126);
+    background-color: rgb(255, 255, 239);
     font-family: "Lucida Console", "Courier New", monospace;  
 }
 
@@ -11,10 +11,18 @@ body {
 .title {
     font-size: 40px;
     text-decoration: underline;
+    color: rgb(0, 0, 0);
+    font-weight: 1000;
 }
 
 .score {
     font-size: 30px;
+}
+
+.win-lose {
+    margin: 1.5%;
+    font-size: 30px;
+    font-weight: 1000;
 }
 
 .img-buttons {
@@ -24,7 +32,7 @@ body {
     justify-content: center;
     align-items: center;
     transition: transform .05s;
-  }
+}
   
 #rock:hover,
 #paper:hover,

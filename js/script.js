@@ -6,7 +6,6 @@ function computerPlay(){
     return PLAYS[Math.floor(Math.random() * PLAYS.length)];
 }
 
-
 // Return the results of the game
 function gameLogic(playerSelection, computerSelection){
     switch(true){
@@ -23,7 +22,6 @@ function gameLogic(playerSelection, computerSelection){
     }
 }
 
-
 // Keep the individual scores of each player
 let myScore = 0;
 let cpuScore = 0;
@@ -35,11 +33,10 @@ function scoreTracker(scoreNum){
     }
 }
 
-
 // Returns the outcome of the game
 function scoreText(scoreNum, playerSelection, computerSelection){
     if (scoreNum == 1){
-        return `You win! ${playerSelection} beats ${computerSelection}`;
+        return `You Win! ${playerSelection} beats ${computerSelection}`;
     } else if (scoreNum == -1){
         return `You Lose! ${computerSelection} beats ${playerSelection}`;
     } else {
@@ -56,26 +53,41 @@ function displayOutcomeText(scoreNum, playerSelection, computerSelection){
     gameResult.appendChild(p);
 }
 
-// Add's the game result score to the DOM
+// Modifies the game score in the DOM
 function displayOutcomeScore(){
-    const gameResult = document.querySelector('.result-number');
-    const p = document.createElement('p');
-    p.classList.add('p');
-    p.textContent = `My Score:${myScore} - CPU Score:${cpuScore}`;
-    gameResult.appendChild(p);
+    const score = document.querySelector('.score p');
+    score.textContent = `Score: ${myScore} - ${cpuScore}`;
 }
 
+// Once game is finished, creates a new button in the DOM
+function displayNewGame(){
+    const newGame = document.querySelector('.new-game');
+    const newButton = document.createElement('button');
+    newButton.innerHTML = "Play Again!";
+    newGame.appendChild(newButton);
+}
 
+// Displays game result after the game is finished
+function displayResult(result, color='#000000'){
+    const gameResult = document.querySelector('.win-lose');
+    gameResult.style.color = color;
+    gameResult.textContent = `${result}`;
+}
 
-// Get all the buttons in buttons container div
-const mybuttons = document.querySelectorAll('.buttons button');
+// Get all the images in img container div
+const mybuttons = document.querySelectorAll('.img-buttons img');
 
-// Add the event listener to each button
+// Add the event listener to each image
 mybuttons.forEach(mybuttons => {
     mybuttons.addEventListener('click', playGame);
 });
 
-
+// Remove ability to continue game after the game is finished
+function finish(){
+    mybuttons.forEach(mybuttons => {
+        mybuttons.removeEventListener('click', playGame);
+    });
+}
 
 
 // Play's the game
@@ -86,67 +98,12 @@ function playGame(){
     scoreTracker(gameResult);
     displayOutcomeText(gameResult, myPlay, cpuPlay);
     displayOutcomeScore();
-}
 
-
-
-
-
-
-
-
-
-/*
-function parseGame(userSelection){
-    // Makes the game case insensitive and checks for null values
-    userSelection = userSelection.toLowerCase();
-
-    if (PLAYS.includes(userSelection)){
-        return userSelection;
-    }
-    return null;
-}
-*/
-/*
-function playGame(userSelection){
-    userSelection = parseGame(userSelection);
-    if (userSelection){
-        let computerSelection = computerPlay();
-        let gameResult = gameLogic(userSelection, computerSelection);
-        return gameResult;
-    }
-    return 'Please enter: Rock, Paper or Scissor';
-}
-*/
-
-
-
-
-
-
-/*
-// Select the div to display the game results
-const gameResult = document.querySelector('.results');
-
-// Create a p elemento to display game results
-const p = document.createElement('p');
-p.classList.add('p');
-p.textContent = 'This is the glorious text-content!';
-
-gameResult.appendChild(p);
-*/
-
-
-/*
-function game(game_duration=5){
-    for (let i = 1; i < game_duration; i++){
-        result = window.prompt('Rock, Paper, Scissors', 'Please enter your move');
-        if (result){
-            console.log(playGame(result));
-        }
+    if (myScore >= 5){
+        displayResult('You Won!', '#0BDA51');
+        finish();   
+    } else if (cpuScore >= 5) {
+        displayResult('You Lost!', '#EE4B2B');
+        finish();
     }
 }
-
-
-game();
-*/
